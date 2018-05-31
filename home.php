@@ -1,4 +1,22 @@
-  <!DOCTYPE html>
+<?php 
+  include_once("functions.php");
+
+
+  if ($_POST) {
+      // $errores = validarDatos($_POST);
+      // if(empty($errores)){
+      //     $usuario = crearUsuario($_POST);
+      //     var_dump($usuario);
+      //     guardarUsuario($usuario);
+      // }
+  }
+
+
+ ?>
+
+
+
+ <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
   <head>
