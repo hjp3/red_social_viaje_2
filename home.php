@@ -3,12 +3,20 @@
 
 
   if ($_POST) {
-      // $errores = validarDatos($_POST);
-      // if(empty($errores)){
-      //     $usuario = crearUsuario($_POST);
-      //     var_dump($usuario);
-      //     guardarUsuario($usuario);
-      // }
+  //     $errores = validarDatosLogin($_POST);
+  //     if(empty($errores)){
+          if(comprobarLogin($_POST['email'], $_POST['password'])){
+              session_start();
+              $_SESSION['login'] = $_POST['email'];
+              header("Location:bienvenida.php");
+          }else{
+              header("Location:home.php");
+          }
+          if(isset($_POST['acordate'])){
+            set_cookie("email",$_POST['email']);
+            set_cookie("password",$_POST['password']);
+          }
+  //     }
   }
 
 
@@ -43,28 +51,17 @@
             <p>Completá tus datos y ponete en contacto con gente cerca tuyo que quieren ir a dónde vas vos.</p>
             <h3 class="conectate">Conectate al mundo</h3>
           </section>
+
           <section class="login registrado">
-            <form class="" method="post" action="functions.php">
-              <label for="inputEmail" >Usuario</label>
-              <input type="text" id="inputEmail" name="usuario" placeholder="Usuario" pattern="[A-Za-z_-0-9]{1,20}" required autofocus>
-
-              <label for="inputPassword" >Contraseña</label>
-              <input type="password" id="inputPassword" name="contrasena" placeholder="Contraseña" pattern="[A-Za-z_-0-9]{1,20}" required>
-
-              <input type="checkbox" id="acordate" value="remember-me" name="acordate">
-              <label for="acordate">Recuérdame</label>
-
-              <br>
-              <br>
-
-              <button type="submit" name="loguear" class="btn">Log In</button>
-
-            </form>
-            <br>
-            <br>
-            <div class="registrarse">
-              <a href="registro.php" class="btn">Registrarse</a>
-            </div>
+            <?php 
+            if(!isset($_SESSION['login'])){
+              include('formulario_registro.php');
+            }else{
+             ?>  
+              <a href='logout.php'>Logout</a>
+            <?php 
+            }
+            ?>
           </section>
         </main>
       </section>
