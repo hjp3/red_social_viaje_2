@@ -1,23 +1,25 @@
 <?php 
   include_once("functions.php");
 
+ 
 
-  if ($_POST) {
-  //     $errores = validarDatosLogin($_POST);
-  //     if(empty($errores)){
+    if ($_POST) {
+  //    $errores = validarDatosLogin($_POST);
+  //    if(empty($errores)){
           if(comprobarLogin($_POST['email'], $_POST['password'])){
+              if(isset($_POST['acordate'])){
+                set_cookie("email",$_POST['email']);
+                set_cookie("password",$_POST['password']);
+              }
               session_start();
               $_SESSION['login'] = $_POST['email'];
               header("Location:bienvenida.php");
-          }else{
-              header("Location:home.php");
           }
-          if(isset($_POST['acordate'])){
-            set_cookie("email",$_POST['email']);
-            set_cookie("password",$_POST['password']);
-          }
+          
   //     }
   }
+  
+  
 
 
  ?>
@@ -55,7 +57,7 @@
           <section class="login registrado">
             <?php 
             if(!isset($_SESSION['login'])){
-              include('formulario_registro.php');
+              include('formulario_login.php');
             }else{
              ?>  
               <a href='logout.php'>Logout</a>

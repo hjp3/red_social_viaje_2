@@ -200,38 +200,126 @@ echo("<br>");
 //           }
       
           ?>
- <!DOCTYPE html>
+ 
+
+
+<?php 
+    
+// if(isset($_COOKIE['id_user']) && isset($_COOKIE['marca'])){
+//     if($_COOKIE['id_user']!="" || $_COOKIE['marca']!=""){
+//         $sql_c = mysql_query("SELECT * FROM users 
+//                     WHERE id_user='".$_COOKIE["id_user"]."' 
+//                     AND cookie='".$_COOKIE["marca"]."'
+//                     AND cookie<>'';");
+//     }
+//     if(mysql_num_rows($sql_c)){
+//         $row_c = mysql_fetch_array($sql_c);
+//         echo "El usuario ".$row_c['username']." se ha identificado correctamente.";
+//         $user_cookie = mysql_fetch_array($sql_c);
+//     }
+// }
+
+
+    //
+    // if($imagen['name'] == ""){
+    //     $nombre = $carpeta_imagen . "avatar.png";
+    // }else{
+    //     cargarImagen($imagen);
+    // }
+            
+   
+    $usuario_c = $_POST;
+
+    $imagen = cargarImagen1($_FILES);
+    
+            // iniciamos sesión
+            
+
+
+  $json_content= file_get_contents("usuarios6.json");  // descargamos el contenido del archivo json
+  $array= json_decode($json_content,true);            // pasamos a array el contenido del archivo json
+  $array2[0] = array(); // declaramos un nuevo array
+  echo("<br>");
+  echo("<br>");
+  foreach($array as $usuarios)
+    {
+        
+        foreach($usuarios as $usuario)
+
+        {
+            if ($usuario['email'] == $usuario_c['email']) {
+                $array2[0]['usuarios'][] = $usuario_c;
+                //echo("<br>");
+                //echo("<br>");
+                //var_dump($usuario);
+            }else{
+                $array2[0]['usuarios'][] = $usuario;
+                "avatar" => $imagen
+            }
+            
+            //array_merge php
+            //var_dump($usuario);
+            
+            
+        }
+    }
+    echo("<br>");
+    echo("<br>");
+    
+  $array= json_encode($array2);                // le pasamos el nuevo array a json
+  file_put_contents("usuarios6.json",$array);  // y los ponemos de nuevo en el archivo
+
+
+
+    // function cargarImagen($imagen){
+    //     $nombre_imagen = $imagen['imagen']['name'];
+        
+    //     $carpeta_imagen = "img/";
+        
+    //     if($nombre_imagen){
+    //        // guardamos la ruta de la carpeta destino de la imagen
+    //        $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . "/digitalhouse/RedSocialViaje2/img/";
+    //        // copiamos la imagen desde la carpeta temporal del servidor a la carpeta elegida
+    //        move_uploaded_file($imagen['imagen']['tmp_name'],$carpeta_destino . $nombre_imagen);
+    //        return $carpeta_imagen . $nombre_imagen;
+    //     }else{
+            
+    //        return $carpeta_imagen . "avatar1.png";
+    //     }
+        
+    // }
+
+    
+        
+//     $datos = $_POST;
+// foreach ($datos as $key => $value) {
+//     echo $key . "..." . $value;
+//     echo("<br>");
+    
+
+
+// echo cargarImagen($imagen);
+
+//$foto = $_FILES;
+// if(!$foto){
+//     echo("es nulo");
+// }
+
+
+?>
+<!DOCTYPE html>
  <html>
  <head>
      <title></title>
  </head>
  <body>
-    <!-- <form action="imagenes.php" enctype="multipart/form-data" method="post">
-        <input type="file" name="imagen" size="30">
-        <input type='submit' name='Submit' value='Enviar' />
-    </form> -->
+    <img src="<?php //echo cargarImagen($imagen); ?>" alt="">
+    
  </body>
  </html>
 
 
-<?php 
-if(isset($_COOKIE['id_user']) && isset($_COOKIE['marca'])){
-    if($_COOKIE['id_user']!="" || $_COOKIE['marca']!=""){
-        $sql_c = mysql_query("SELECT * FROM users 
-                    WHERE id_user='".$_COOKIE["id_user"]."' 
-                    AND cookie='".$_COOKIE["marca"]."'
-                    AND cookie<>'';");
-    }
-    if(mysql_num_rows($sql_c)){
-        $row_c = mysql_fetch_array($sql_c);
-        echo "El usuario ".$row_c['username']." se ha identificado correctamente.";
-        $user_cookie = mysql_fetch_array($sql_c);
-    }
-}
 
-
-
- ?>
     
 
 

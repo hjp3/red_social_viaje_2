@@ -1,22 +1,30 @@
 <?php
 include_once "functions.php";
+session_start();
 
-
-if ($_POST) {
-    $errores = validarDatos($_POST);
-    if(empty($errores)){
-        $usuario = crearUsuario($_POST);
-        var_dump($usuario);
-        guardarUsuario($usuario);
-        $nombre_imagen = $_FILES['imagen']['name'];
-        // guardamos la ruta de la carpeta destino de la imagen
-        $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . "/digitalhouse/RedSocialViaje2/img/";
-        // copiamos la imagen desde la carpeta temporal del servidor a la carpeta elegida
-        move_uploaded_file($_FILES['imagen']['tmp_name'],$carpeta_destino . $nombre_imagen);
+if(isset($_SESSION['login'])){
+    header("Location:bienvenida.php");
+}else{
+    if ($_POST) {
+    //    $errores = validarDatos($_POST);
+    //    if(empty($errores)){
+            $imagen = cargarImagen1($_FILES);
+            $usuario = crearUsuario($_POST,$imagen);
+            //var_dump($usuario);
+            guardarUsuario($usuario);
+            // iniciamos sesión
+            $_SESSION['login'] = $_POST['email'];
+            header("Location:bienvenida.php");
+    //    }
     }
 }
 
+
+
+
+
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,18 +45,18 @@ if ($_POST) {
                 <div><span class='error'></span></div>
                 <div class='container'>
                     <label for='name' >Nombre completo</label><br/>
-                    <input type='text' name='nombre_completo' id='name' value='' maxlength="50" /><br/>
+                    <input type='text' name='nombre_completo' id='name' value='<?php if(isset($errores["nombre_completo"])){ echo "";}else{echo $_POST["nombre_completo"];} ?>' maxlength="50" /><br/>
                     <span id='register_name_errorloc' class='error'><?php echo isset($errores["nombre_completo"])? $errores["nombre_completo"]:"";?></span> 
                 </div>
                 <div class='container'>
                     <label for='email' >Email</label><br/>
-                    <input type='text' name='email' id='email' value='' maxlength="50" /><br/>
+                    <input type='text' name='email' id='email' value='<?php if(isset($errores["email"])){ echo "";}else{echo $_POST["email"];} ?>' maxlength="50" /><br/>
                     <span id='register_email_errorloc' class='error'><?php echo isset($errores["email"])? $errores["email"]:"";
                     ?></span>
                 </div>
                 <div class='container'>
                     <label for='username' >Nombre de usuario*</label><br/>
-                    <input type='text' name='usuario' id='username' value='' maxlength="50" /><br/>
+                    <input type='text' name='usuario' id='username' value='<?php if(isset($errores["usuario"])){ echo "";}else{echo $_POST["usuario"];} ?>' maxlength="50" /><br/>
                     <span id='register_username_errorloc' class='error'><?php echo isset($errores["usuario"])? $errores["usuario"]:"";?></span>
                 </div>
                 <div class='container' style='height:80px;'>
