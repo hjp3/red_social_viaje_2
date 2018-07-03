@@ -87,7 +87,8 @@ function cargarImagen1($imagen){
         
         if($nombre_imagen){
            // guardamos la ruta de la carpeta destino de la imagen
-           $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . "/digitalhouse/RedSocialViaje2/img/";
+           $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . "/hjp/red_social_2/img/";
+           //$carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . "/digitalhouse/RedSocialViaje2/img/";
            // copiamos la imagen desde la carpeta temporal del servidor a la carpeta elegida
            move_uploaded_file($imagen['imagen']['tmp_name'],$carpeta_destino . $nombre_imagen);
            return $carpeta_imagen . $nombre_imagen;
