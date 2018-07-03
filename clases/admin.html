@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styleform.css">
+    <link rel="stylesheet" href="">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titan+One" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+
+<form action="admin.php" method="post" enctype="multipart/form-data">
+    Select json to process:
+    <input type="file" name="json" id="json">
+    <input type="submit" value="subir json" name="submit">
+    <br><br>
+    Ingrese el nombre del archivo json:
+    <input type="text" name="json" id="json">
+    <input type="submit" value="pasar a json" name="submit">
+    <br>
+    <br>
+    Seleccione el modo de almacenar la información:
+    <br>
+    <input type="radio" name="info" value="mysql" checked>Mysql
+	<input type="radio" name="info" value="json">Json
+	<input type="submit" value="Seleccionar" name="submit">
+</form>
+</body>
+</html>
